@@ -2,21 +2,19 @@ package net.javaguides.ems_backend.entity;
 
 import entity.Attendee;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @Entity
 @Table(name = "events")
-public class Event {
+public class AppEvent {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,12 +38,12 @@ public class Event {
     private String createdBy;
 
     @Column(name = "date", nullable = false)
-    private String date;
+    private LocalDate date;
 
     @ElementCollection
     @CollectionTable(name = "event_tags", joinColumns = @JoinColumn(name = "event_id"))
     @Column(name = "tag")
-    private Set<String> tags = new HashSet<>();
+    private Set<String> tags;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -53,5 +51,5 @@ public class Event {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "attendee_id")
     )
-    private Set<Attendee> attendees = new HashSet<>();
+    private Set<Attendee> attendees;
 }

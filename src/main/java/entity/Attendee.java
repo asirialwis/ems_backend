@@ -27,5 +27,5 @@ public class Attendee {
     private String email;
 
     @ManyToMany(mappedBy = "attendees", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<net.javaguides.ems_backend.entity.Event> registeredEvents = new HashSet<>();
+    private Set<net.javaguides.ems_backend.entity.AppEvent> registeredEvents = new HashSet<>();
 }
